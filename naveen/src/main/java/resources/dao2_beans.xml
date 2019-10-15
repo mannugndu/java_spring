@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="connectionsPool"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/naveen"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="tiger"></property>
+		<property name="maxIdle" value="5"></property>
+		<property name="maxWaitMillis" value="2000"></property>
+		<property name="maxTotal" value="15"></property>
+
+	</bean>
+	
+	<bean id="studentDAO" class = "com.naveen.dao2.dao.StudentDAOImpl">
+	<property name="ds" ref="connectionsPool"></property>
+	</bean>
+	
+
+<bean id="studentBo" class="com.naveen.dao2.bo.StudentBoImpl" scope="prototype">
+<property name="studentdao" ref="studentDAO"></property>
+</bean>
+
+</beans>
